@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, session, flash, url_for, jsonify
-from . import app, db
-from .models import Filmes, Plataformas, Comentarios, Usuarios
+from iniciar_app import app, db
+from models import Filmes, Plataformas, Comentarios, Usuarios
 import os, json, mysql.connector, zipfile as zip
 from mysql.connector import errorcode
 import urllib.request
@@ -14,17 +14,19 @@ def index():
 def login():
     return render_template('login.html')
 
-@app.route('/conectar', methods = ['POST'])
+@app.route('/conectar', methods = ['POST', ])
 def conectar():
     usuario = Usuarios.query.filter_by(email=request.form['email']).first()
 
     if usuario:
         if request.form['senha'] != usuario.senha:
             flash('A Senha Inserida está Incorreta!', category = 'error')
-            return redirect(url_for('/login'))
+            return redirect(url_for('login'))
         if request.form['senha'] == usuario.senha:
-            flash('O Usuário' + usuario.nome_usuario + ' foi Logado com Sucesso!')
-            return redirect()
+            session['logged_user'] = usuario.nome_usuario
+            flash('O Usuário ' + usuario.nome_usuario + ' foi Logado com Sucesso!')
+            next = request.form['next']
+            return redirect(next)
     else:
         flash('[ERRO]: Falha no LogIn de Usuário.')
         return redirect(url_for('login'))
@@ -33,7 +35,7 @@ def conectar():
 def cadastro():
     return render_template('cadastro.html')
 
-@app.route('/criar-usuario', methods = ['POST'])
+@app.route('/criar-usuario', methods = ['POST', ])
 def criar_usuario():
     email = request.form['email']
     nome_usuario = request.form['nome_usuario']
@@ -58,6 +60,10 @@ def desconectar():
     session['logged_user'] = None
     flash('Você foi Desconectado...', category = 'message')
     return redirect(url_for('login'))
+
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
 
 @app.route('/infos')
 def infos():
@@ -116,7 +122,7 @@ def novofilme():
         return redirect(url_for('index'))
     return render_template('novo_filme.html')
 
-@app.route('/adicionarfilme', methods = ['POST'])
+@app.route('/adicionarfilme', methods = ['POST', ])
 def adicionarfilme():
     nome_filme = request.form['nome_filme']
     data_lancamento = request.form['data_lancamento']
@@ -137,7 +143,7 @@ def editarfilme(id_filme):
     filme = Filmes.query.filter_by(id_filme = id_filme).first()
     return render_template('editar_filme.html')
 
-@app.route('/alterarfilme', methods = ['POST'])
+@app.route('/alterarfilme', methods = ['POST', ])
 def alterarfilme():
     filme = Filmes.query.filter_by(id_filme = request.form['id_filme']).first()
 
@@ -174,7 +180,7 @@ def novaplataforma():
         return redirect(url_for('index'))
     return render_template('nova_plataforma.html')
 
-@app.route('/adicionarplataforma', methods = ['POST'])
+@app.route('/adicionarplataforma', methods = ['POST', ])
 def adicionarplataforma():
     nome_plataforma = request.form['nome_plataforma']
 
@@ -189,10 +195,10 @@ def adicionarplataforma():
 def editarplataforma(id_plataforma):
     if 'logged_user' not in session or session['logged_user'] == None:
         return redirect(url_for('index'))
-    plataforma = Plataformas.query.filter_by(Plataformas.nome_plataforma).first()
+    plataforma = Plataformas.query.filter_by(id_plataforma = id_plataforma).first()
     return render_template('editar_plataforma.html')
 
-@app.route('/alterarplataforma', methods = ['POST'])
+@app.route('/alterarplataforma', methods = ['POST', ])
 def alterarplataforma():
     plataforma = Plataformas.query.filter_by(nome_plataforma = request.form['nome_plataforma']).first()
 
@@ -226,7 +232,7 @@ def novocomentario():
         return redirect(url_for('index'))
     return render_template('novo_comentario.html')
 
-@app.route('/adicionarcomentario', methods = ['POST'])
+@app.route('/adicionarcomentario', methods = ['POST', ])
 def adicionarcomentario():
     nome_comentario = request.form['nome_comentario']
 
@@ -244,7 +250,7 @@ def editarcomentario(id_comentario):
     plataforma = Plataformas.query.filter_by(id_comentario = id_comentario).first()
     return render_template('editar_comentario.html')
 
-@app.route('/alterarcomentario', methods = ['POST'])
+@app.route('/alterarcomentario', methods = ['POST', ])
 def alterarcomentario():
     comentarioo = Comentarios.query.filter_by(comentario = request.form['comentario']).first()
 
