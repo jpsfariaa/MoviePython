@@ -1,0 +1,31 @@
+<nav class="navbar navbar bg-light" style="background-color: #063602;">
+    <a class = "navibar-brand" href="{{ url_for('menu') }}">Menu</a>
+</nav>
+  
+{% extends "template.html" %}
+{% block conteudo %}
+  
+<table class="table table-striped table-responsive table-bordered">
+    <thead class="thead-default">
+        <tr>
+            <th>Comentário</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comentario in comentarios %}
+        <tr>
+            <td>{{ comentario.comentario }}</td>
+            <td>
+                <a class="btn btn-secondary" style="font-family: trebuchet ms;" href="{{ url_for('editarfilme', id_filme=filme.id_filme) }}">Alterar</a>
+                <a class="btn btn-dark" style="font-family: trebuchet ms;" href="{{ url_for('deletarfilme', id_filme=filme.id_filme) }}">Remover</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  
+  <div style="float: right; width:  100%;">
+      <button class="btn btn-info pull-right" style="float: right;" onclick="location.href='{{ url_for('novofilme') }}'">+</button>
+      <button class="btn btn-info pull-right" onclick="location.href='{{ url_for('exportar', nome_tabela=nome_tabela) }}'">Exportar Lista de Filmes</button>
+  </div>
+{% endblock %}
