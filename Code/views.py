@@ -89,7 +89,7 @@ def exportar(page_title):
     cursor = connection.cursor(dictionary = True)
     cursor.execute("USE bancofilmes;")
     cursor.execute('''SELECT *
-    FROM {0})'''.format(page_title))
+    FROM {0}'''.format(page_title))
 
     select = cursor.fetchall()
 
@@ -101,7 +101,7 @@ def exportar(page_title):
     arquivo_zip.close()
     flash('O Arquivo em ZIP, foi Baixado com Sucesso!')
 
-    return redirect(url_for(nome_tabela.lower()))
+    return redirect(url_for(page_title.lower()))
 
 # Rotas com o Modelo "Usuários"
 @app.route('/deletarusuario/<int:id_usuario>')
