@@ -1,4 +1,4 @@
-from . import db
+from iniciar_app import db
 
 # Criando Classes para as Tabelas (SQL Alchemy)
 class Filmes(db.Model):
@@ -28,7 +28,7 @@ class Comentarios(db.Model):
     def __repr__(self):
         return self.name
 
-class Usuarios(db.Model, UserMixin):
+class Usuarios(db.Model):
     id_usuario = db.Column(db.Integer, primary_key=True, autoincrement = True)
     nome_usuario = db.Column(db.String(100))
     email = db.Column(db.String(50))
