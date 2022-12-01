@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+{% block conteudo %}
+      <form action="{{ url_for('adicionarplataforma') }}" method="post">
+        <fieldset>
+          <input type="hidden" name="id_plataforma">
+
+          <div class="form-group">
+            <label for="nome_plataforma" style="font-family: trebuchet ms;">Nome da Plataforma</label>
+            <input type="text" id="nome_plataforma" name="nome_plataforma" class="form-control">
+          </div>
+          <br>
+          <button type="submit" class="btn btn-info btn-salvar">Salvar</button>
+        </fieldset>
+      </form>
+{% endblock %}
