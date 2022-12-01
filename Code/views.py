@@ -35,7 +35,7 @@ def conectar():
 def cadastro():
     return render_template('cadastro.html')
 
-@app.route('/criar-usuario', methods = ['POST', ])
+@app.route('/criar_usuario', methods = ['POST', ])
 def criar_usuario():
     email = request.form['email']
     nome_usuario = request.form['nome_usuario']
