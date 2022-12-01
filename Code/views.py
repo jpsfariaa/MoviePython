@@ -69,8 +69,8 @@ def menu():
 def infos():
     return render_template('info_app.html')
 
-@app.route('/exportar/<nome_tabela>')
-def exportar(nome_tabela):
+@app.route('/exportar/<page_title>')
+def exportar(page_title):
     if 'logged_user' not in session or session['logged_user'] == None:
         return redirect(url_for('index'))
 
@@ -89,14 +89,14 @@ def exportar(nome_tabela):
     cursor = connection.cursor(dictionary = True)
     cursor.execute("USE bancofilmes;")
     cursor.execute('''SELECT *
-    FROM {0})'''.format(nome_tabela))
+    FROM {0})'''.format(page_title))
 
     select = cursor.fetchall()
 
     with open("export_data.json", "w", encoding = 'utf8') as export_archive:
         json.dump(select, export_archive)
 
-    arquivo_zip = zip.ZipFile('{0}.zip'.format(nome_tabela), 'w')
+    arquivo_zip = zip.ZipFile('{0}.zip'.format(page_title), 'w')
     arquivo_zip.write('export_data.json')
     arquivo_zip.close()
     flash('O Arquivo em ZIP, foi Baixado com Sucesso!')

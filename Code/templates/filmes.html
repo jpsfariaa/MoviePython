@@ -32,6 +32,6 @@
   
   <div style="float: right; width:  100%;">
       <button class="btn btn-info pull-right" style="float: right;" onclick="location.href='{{ url_for('novofilme') }}'">+</button>
-      <button class="btn btn-info pull-right" onclick="location.href='{{ url_for('exportar', nome_tabela=nome_tabela) }}'">Exportar Lista de Filmes</button>
+      <button class="btn btn-info pull-right" onclick="location.href='{{ url_for('exportar', page_title=page_title) }}'">Exportar Lista de Filmes</button>
   </div>
 {% endblock %}
