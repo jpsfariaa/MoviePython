@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+{% block content %}
+      <form action="{{ url_for('alterarcomentario') }}" method="post">
+        <fieldset>
+          <input type="hidden" name="id_comentario" value="{{ comentario.id_comentario }}">
+
+          <div class="form-group">
+            <label for="comentario" style="font-family: trebuchet ms;">Comentário</label>
+            <input type="text" id="comentario" name="comentario" class="form-control" value="{{ comentario.id_comentario }}">
+          </div>
+          <br>
+          <button type="submit" class="btn btn-info btn-salvar">Salvar</button>
+        </fieldset>
+      </form>
+{% endblock %}
