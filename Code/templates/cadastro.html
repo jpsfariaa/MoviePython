@@ -1,0 +1,21 @@
+{% extends "template.html" %}
+{% block conteudo %}
+      <form action="{{ url_for('criar_usuario') }}" method="post">
+        <fieldset>
+          <div class="form-group">
+            <label for="email" style = "font-family: trebuchet ms">Endereço E-Mail</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="nome_usuario" style = "font-family: trebuchet ms">Nome de Usuário</label>
+            <input type="text" id="nome_usuario" name="nome_usuario" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="senha" style = "font-family: trebuchet ms">Senha</label>
+            <input type="password" id="senha" name="senha" class="form-control" required>
+          </div>
+          <br>
+          <button type="submit" class="btn btn-info btn-salvar" style = "font-family: trebuchet ms">Salvar</button>
+        </fieldset>
+      </form>
+{% endblock %}
