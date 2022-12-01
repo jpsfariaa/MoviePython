@@ -46,7 +46,7 @@ CREATE TABLE `comentarios` (
 
 TABLES['Usuarios'] = ('''
 CREATE TABLE `usuarios` (
-    `id_usuario` INTEGER NOT NULL AUTO_INCREMENT,
+    `id_usuario` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `nome_usuario`  VARCHAR(100),
     `email` VARCHAR(50),
     `senha` VARCHAR(30)
