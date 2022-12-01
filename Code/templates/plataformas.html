@@ -1,0 +1,31 @@
+<nav class="navbar navbar bg-light" style="background-color: #6709e2;">
+    <a class = "navibar-brand" href="{{ url_for('menu') }}">Menu</a>
+</nav>
+  
+{% extends "template.html" %}
+{% block conteudo %}
+  
+<table class="table table-striped table-responsive table-bordered">
+    <thead class="thead-default">
+        <tr>
+            <th>Nome da Plataforma</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for plataforma in plataformas %}
+        <tr>
+            <td>{{ plataforma.nome_plataforma }}</td>
+            <td>
+                <a class="btn btn-secondary" style="font-family: trebuchet ms;" href="{{ url_for('editarplataforma', id_plataforma=plataforma.id_plataforma) }}">Alterar</a>
+                <a class="btn btn-dark" style="font-family: trebuchet ms;" href="{{ url_for('deletarplataforma', id_plataforma=plataforma.id_plataforma) }}">Remover</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  
+  <div style="float: right; width:  100%;">
+      <button class="btn btn-info pull-right" style="float: right;" onclick="location.href='{{ url_for('novaplataforma') }}'">+</button>
+      <button class="btn btn-info pull-right" onclick="location.href='{{ url_for('exportar', nome_tabela=nome_tabela) }}'">Exportar Lista de Filmes</button>
+  </div>
+{% endblock %}
