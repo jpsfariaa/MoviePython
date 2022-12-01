@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+{% block content %}
+      <form action="{{ url_for('alterarfilme') }}" method="post">
+        <fieldset>
+          <input type="hidden" name="id_filme" value="{{ filme.id_filme }}">
+
+          <div class="form-group">
+            <label for="nome_filme" style="font-family: trebuchet ms;">Nome do Filme</label>
+            <input type="text" id="nome_filme" name="nome_filme" class="form-control" value="{{ filme.id_filme }}">
+          </div>
+          <div class="form-group">
+            <label for="data_lancamento" style="font-family: trebuchet ms;">Data Lançamento</label>
+            <input type="date" id="data_lancamento" name="data_lancamento" class="form-control" value="{{ filme.data_lancamento }}">
+          </div>
+          <div class="form-group">
+            <label for="nome_diretor" style="font-family: trebuchet ms;">Nome do Diretor</label>
+            <input type="text" id="nome_diretor" name="nome_diretor" class="form-control" value="{{ filme.nome_diretor }}">
+          </div>
+          <div class="form-group">
+            <label for="nome_ator">Nome do Ator</label>
+            <input type="text" id="nome_ator" name="nome_ator" class="form-control" value="{{ filme.nome_ator }}">
+          </div>
+          <br>
+          <button type="submit" class="btn btn-info btn-salvar">Salvar</button>
+        </fieldset>
+      </form>
+{% endblock %}
